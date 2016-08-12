@@ -22,7 +22,7 @@ RUN chown git:git git-shell-commands && chmod 550 git-shell-commands
 
 # Test validity of configuration file and output effective configuration.
 WORKDIR /var/log/sshd
-RUN shd -T > sshd_test.log
+RUN sshd -T > sshd_test.log
 
 # Mount file containing all permitted users' public keys.
 VOLUME ["/home/git/.ssh/authorized_keys"]
