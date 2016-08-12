@@ -1,0 +1,10 @@
+# Authentication configuration
+HostKey /etc/ssh/ssh_host_rsa_key
+PermitRootLogin no
+AllowGroups git
+AuthenticationMethods publickey
+PasswordAuthentication no
+PermitRootLogin no
+
+# Configure file transfer daemon.
+Subsystem sftp /usr/lib/openssh/sftp-server
