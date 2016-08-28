@@ -1,3 +1,5 @@
 FROM felicio/python
 
-RUN pip3 install Django
+RUN pip install --no-cache-dir Django
+
+CMD ["/usr/bin/python"]
