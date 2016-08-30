@@ -1,18 +1,17 @@
 FROM alpine
 
-ENV PGDATA /var/lib/postregsql/data
-
 RUN apk add --no-cache postgresql
 
-# Avoid permissions problems by not setting data directory directly as mountpoint.
+# Avoid permissions problems by not setting data directory directly as a mountpoint.
+# Also represents the only top most directory, where user can store database clusters. 
 VOLUME ["/var/lib/postgresql"]
-
-USER postgres
-WORKDIR ["/var/lib/postgresql/postgresql/data"]
-
-RUN initdb -A md5 
 
 EXPOSE 5432
 
-# Following syntax allows Shell expansion.
-CMD ["sh", "-c", "postgres -D ${PGDATA}"]
+USER postgres
+
+COPY docker-entrypoint.sh /usr/bin/
+
+# Use helper script in order to postpone authentication till runtime.
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["postgres"]
