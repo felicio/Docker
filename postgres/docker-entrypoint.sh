@@ -9,17 +9,15 @@ fi
 if [ "$1" = "postgres" ]; then
 
 	# Specify database cluster.
-	export PGDATA=${PG_DATA_PATH=/var/lib/postgres/db/data}
+	export PGDATA=${PG_DATA_PATH=/var/lib/postgresql/db/data}
 	mkdir -p `dirname ${PGDATA}`
 	
 	# Initiliaze PostgreSQL database and create root account with its credentials.
-	pg_ctl initdb --silent -o '-h localhost -A "${PG_AUTH_METHOD=md5}" --pwprompt'
-
-	# Additionally configure database before starting it.
-	# ...
+	pg_ctl initdb --silent -o '-A "${PG_AUTH_METHOD=md5}" --pwprompt'
 
 	# Start database server. And replace the shell with this program.
-	exec pg_ctl start
+	#exec pg_ctl start -w -o "-c listen_addresses=localhost"
+	exec postgres -h localhost
 
 fi
 
