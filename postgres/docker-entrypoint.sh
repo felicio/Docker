@@ -6,21 +6,22 @@ if [ "${1:0:1}" = "-" ]; then
 	exec postgres "$@"
 fi
 
-# Initialize PostgreSQL database and root account with its credentials.
 if [ "$1" = "postgres" ]; then
 
-	# Specify database cluster location.
-	export PGDATA=/var/lib/postgres/data
+	# Specify database cluster.
+	export PGDATA=${PG_DATA_PATH=/var/lib/postgres/db/data}
+	mkdir -p `dirname ${PGDATA}`
 	
-	initdb -A "${PG_AUTH_METHOD=md5}" -D "${PGDATA=/var/lib/postgres/data}" -W
+	# Initiliaze PostgreSQL database and create root account with its credentials.
+	pg_ctl initdb --silent -o '-h localhost -A "${PG_AUTH_METHOD=md5}" --pwprompt'
+
+	# Additionally configure database before starting it.
+	# ...
+
+	# Start database server. And replace the shell with this program.
+	exec pg_ctl start
+
 fi
 
-# Run the container as different executable.
+# Run the container as different executable other than postgres.
 exec "$@"
-
-# Failing to set password will let anyone with acces to mapped port authenticate as root user.2Gdd
-#psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
-#    CREATE USER docker;
-#    CREATE DATABASE docker;
-#    GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
-#EOSQL
