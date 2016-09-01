@@ -5,4 +5,4 @@ RUN apk add --no-cache python3 \
 
 RUN pip3 install --upgrade --no-cache-dir pip
 
-CMD ["python"]
+ENTRYPOINT ["python"]
