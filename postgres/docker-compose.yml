@@ -1,7 +1,18 @@
 version: '2'
+
 services:
-  database:
+  postgres:
     build: .
     image: ${REPOSITORY}/postgres
     ports:
     - "5432"
+    command: sh
+    tty: true
+
+  proxy:
+    build: ./proxy
+    image: ${REPOSITORY}/proxy:ssh
+    ports:
+    - "22"
+    volumes:
+    - ${AUTHORIZED_KEYS}:/root/.ssh/authorized_keys
