@@ -17,4 +17,4 @@ COPY ["docker-entrypoint.sh", "/usr/bin/"]
 
 # Use helper script in order to postpone authentication till runtime.
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["postgres"]
+#CMD ["postgres"]
