@@ -4,6 +4,7 @@ PermitRootLogin no
 AllowGroups git
 AuthenticationMethods publickey
 PasswordAuthentication no
+#AuthorizedKeysFile PATH
 
 # Configure file transfer daemon.
 Subsystem sftp /usr/lib/openssh/sftp-server
