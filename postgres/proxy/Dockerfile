@@ -2,7 +2,7 @@ FROM alpine
 
 RUN apk add --no-cache openssh
 
-COPY ["etc/sshd_config", "/etc/ssh/sshd_config"]
+#COPY ["etc/sshd_config", "/etc/ssh/sshd_config"]
 
 RUN mkdir /var/run/sshd
 
