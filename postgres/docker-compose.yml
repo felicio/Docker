@@ -1,0 +1,7 @@
+version: '2'
+services:
+  database:
+    build: .
+    image: ${REPOSITORY}/postgres
+    ports:
+    - "5432"
