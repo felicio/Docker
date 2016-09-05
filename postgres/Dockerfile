@@ -1,6 +1,8 @@
 FROM alpine
 
-RUN apk add --no-cache postgresql
+RUN apk add --no-cache \
+  postgresql \
+  openssl
 
 # Copy over server configuration files.
 COPY ["etc/", "/etc/postgresql/"]
